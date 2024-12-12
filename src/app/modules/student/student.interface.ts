@@ -27,7 +27,7 @@ export interface IStudent {
   name: IUserName;
   user: Types.ObjectId;
   gender: "male" | "female"|"other";
-  dateOfBirth?: Date;
+  dateOfBirth?: string;
   email: string;
   contactNo: string;
   emergencyContactNo?: string;
@@ -38,6 +38,7 @@ export interface IStudent {
   localGuardian: ILocalGuardian;
   profileImg?: string;
   isActive: "active" | "blocked";
+  admissionSemester: Types.ObjectId;
 }
 
 export interface StudentMethods{

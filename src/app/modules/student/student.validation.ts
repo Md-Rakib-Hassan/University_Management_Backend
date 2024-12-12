@@ -34,7 +34,7 @@ const studentValidationSchema = z.object({
     student: z.object({
       name: userNameValidationSchema,
       gender: z.enum(["male", "female", "other"], { errorMap: () => ({ message: "Gender is required" }) }),
-      dateOfBirth: z.date().optional(),  // Date format validation could be added here using regex if needed
+      dateOfBirth: z.string().optional(),  // Date format validation could be added here using regex if needed
       email: z.string().email("Invalid email address").min(1, "Email address is required"),
       contactNo: z.string().min(1, "Contact number is required"),
       emergencyContactNo: z.string().optional(),
@@ -44,6 +44,7 @@ const studentValidationSchema = z.object({
       guardian: guardianValidationSchema,
       localGuardian: localGuardianValidationSchema,
       profileImg: z.string().url("Invalid URL format").min(1, "Profile image URL is required"),
+      admissionSemester: z.string(),
   })
   })
 });

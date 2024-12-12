@@ -76,7 +76,7 @@ const studentSchema = new Schema<IStudent,StudentModel,StudentMethods>({
     required: [true, "Gender is required"],
   },
   dateOfBirth: {
-    type: Date,
+    type: String,
   },
   email: {
     type: String,
@@ -119,6 +119,10 @@ const studentSchema = new Schema<IStudent,StudentModel,StudentMethods>({
     type: String,
     required: [true, "Profile image URL is required"],
   },
+  admissionSemester: {
+    type: Schema.Types.ObjectId,
+    ref:'AcademicSemester',
+  }
 });
 
 studentSchema.methods.isUserExists = async function (id: string) {
