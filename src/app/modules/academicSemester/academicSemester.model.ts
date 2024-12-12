@@ -6,12 +6,12 @@ import { IAcademicSemester } from "./academicSemester.interface";
 const academicSemesterSchema = new Schema<IAcademicSemester>(
   {
     name: {
-      type: "string",
+      type: String,
       enum: AcademicSemesterNames,
       required: true,
     },
     code: {
-      type: "string",
+      type: String,
       enum: AcademicSemesterCodes,
       required: true,
     },
