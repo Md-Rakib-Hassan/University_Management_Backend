@@ -48,10 +48,13 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
     type: String,
     required: [true, "Local guardian's contact number is required"],
   },
-  address: { type: String, required: [true, "Local guardian's address is required"] },
+  address: {
+    type: String,
+    required: [true, "Local guardian's address is required"],
+  },
 });
 
-const studentSchema = new Schema<IStudent,StudentModel,StudentMethods>({
+const studentSchema = new Schema<IStudent, StudentModel, StudentMethods>({
   id: {
     type: String,
     required: [true, "Student ID is required"],
@@ -63,14 +66,14 @@ const studentSchema = new Schema<IStudent,StudentModel,StudentMethods>({
   },
   user: {
     type: Schema.Types.ObjectId,
-    required:[true,'User id is required'],
+    required: [true, "User id is required"],
     unique: true,
-    ref:'User'
+    ref: "User",
   },
   gender: {
     type: String,
     enum: {
-      values: ["male", "female","other"],
+      values: ["male", "female", "other"],
       message: "{VALUE} is not a valid gender",
     },
     required: [true, "Gender is required"],
@@ -81,6 +84,7 @@ const studentSchema = new Schema<IStudent,StudentModel,StudentMethods>({
   email: {
     type: String,
     required: [true, "Email address is required"],
+    unique: true,
     // match: [/^\S+@\S+\.\S+$/, "Email is not valid"],
   },
   contactNo: {
@@ -121,13 +125,13 @@ const studentSchema = new Schema<IStudent,StudentModel,StudentMethods>({
   },
   admissionSemester: {
     type: Schema.Types.ObjectId,
-    ref:'AcademicSemester',
-  }
+    ref: "AcademicSemester",
+  },
 });
 
 studentSchema.methods.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
   return existingUser;
-}
+};
 
 export const Student = model<IStudent, StudentModel>("Student", studentSchema);
