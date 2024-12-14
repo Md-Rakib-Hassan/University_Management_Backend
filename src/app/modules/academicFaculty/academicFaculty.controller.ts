@@ -4,7 +4,7 @@ import { AcademicFacultyServices } from "./academicFaculty.service";
 
 
 const createAcademicFaculty = catchAsync(async(req,res) => {
-    
+    console.log(req.body);
     const result = await AcademicFacultyServices.createAcademicFacultyIntoDB(req.body);
     sendResponse(res, {
         success: true,
