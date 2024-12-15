@@ -45,6 +45,7 @@ const studentValidationSchema = z.object({
       localGuardian: localGuardianValidationSchema,
       profileImg: z.string().url("Invalid URL format").min(1, "Profile image URL is required"),
       admissionSemester: z.string(),
+      academicDepartment:z.string()
   })
   })
 });

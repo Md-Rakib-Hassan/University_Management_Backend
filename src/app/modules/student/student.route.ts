@@ -3,7 +3,7 @@ import { StudentControllers } from "./student.controller";
 
 const router = express.Router();
 
-router.get("/", StudentControllers.getAllStudents);
 router.get("/:id", StudentControllers.getStudentById);
+router.get("/", StudentControllers.getAllStudents);
 
 export const StudentRoutes = router;

@@ -127,6 +127,10 @@ const studentSchema = new Schema<IStudent, StudentModel, StudentMethods>({
     type: Schema.Types.ObjectId,
     ref: "AcademicSemester",
   },
+  academicDepartment:{
+    type: Schema.Types.ObjectId,
+    ref:"academicDepartment",
+  }
 });
 
 studentSchema.methods.isUserExists = async function (id: string) {

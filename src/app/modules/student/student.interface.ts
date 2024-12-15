@@ -39,6 +39,7 @@ export interface IStudent {
   profileImg?: string;
   isActive: "active" | "blocked";
   admissionSemester: Types.ObjectId;
+  academicDepartment: Types.ObjectId;
 }
 
 export interface StudentMethods{
