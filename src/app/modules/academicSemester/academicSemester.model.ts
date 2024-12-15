@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { AcademicSemesterCodes, AcademicSemesterNames, months } from "./academicSemester.constant";
 import { IAcademicSemester } from "./academicSemester.interface";
+import AppError from "../../errors/AppError";
 
 
 const academicSemesterSchema = new Schema<IAcademicSemester>(
@@ -52,7 +53,7 @@ academicSemesterSchema.pre("findOneAndUpdate", async function (next) {
   const query = this.getQuery();
   const isSemesterExist = await AcademicSemester.findOne(query);
   if (!isSemesterExist) {
-    throw new Error("This semester does not exist");
+    throw new AppError(404,"This semester does not exist");
   }
   next();
 });
