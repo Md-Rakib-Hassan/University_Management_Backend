@@ -1,4 +1,4 @@
-import { Model, Types } from "mongoose";
+import { Model, Types } from 'mongoose';
 
 export interface IUserName {
   firstName: string;
@@ -26,25 +26,30 @@ export interface IStudent {
   id: string;
   name: IUserName;
   user: Types.ObjectId;
-  gender: "male" | "female"|"other";
+  gender: 'male' | 'female' | 'other';
   dateOfBirth?: string;
   email: string;
   contactNo: string;
   emergencyContactNo?: string;
-  bloodGroup?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   presentAddress: string;
   permanentAddress: string;
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImg?: string;
-  isActive: "active" | "blocked";
+  isActive: 'active' | 'blocked';
   admissionSemester: Types.ObjectId;
   academicDepartment: Types.ObjectId;
+  isDeleted: boolean;
 }
 
-export interface StudentMethods{
+export interface StudentMethods {
   // eslint-disable-next-line no-unused-vars
-  isUserExists(id: string): Promise<IStudent|null>;
+  isUserExists(id: string): Promise<IStudent | null>;
 }
 
-export type StudentModel = Model<IStudent, Record<string,never>, StudentMethods>;
+export type StudentModel = Model<
+  IStudent,
+  Record<string, never>,
+  StudentMethods
+>;

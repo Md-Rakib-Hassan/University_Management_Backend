@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 import {
   IGuardian,
   ILocalGuardian,
@@ -6,15 +6,15 @@ import {
   StudentMethods,
   StudentModel,
   IUserName,
-} from "./student.interface";
+} from './student.interface';
 
 const userNameSchema = new Schema<IUserName>({
   firstName: {
     type: String,
-    required: [true, "First name is required"],
+    required: [true, 'First name is required'],
   },
   middleName: String,
-  lastName: { type: String, required: [true, "Last name is required"] },
+  lastName: { type: String, required: [true, 'Last name is required'] },
 });
 
 const guardianSchema = new Schema<IGuardian>({
@@ -57,7 +57,7 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 const studentSchema = new Schema<IStudent, StudentModel, StudentMethods>({
   id: {
     type: String,
-    required: [true, "Student ID is required"],
+    required: [true, 'Student ID is required'],
     unique: true,
   },
   name: {
@@ -66,30 +66,30 @@ const studentSchema = new Schema<IStudent, StudentModel, StudentMethods>({
   },
   user: {
     type: Schema.Types.ObjectId,
-    required: [true, "User id is required"],
+    required: [true, 'User id is required'],
     unique: true,
-    ref: "User",
+    ref: 'User',
   },
   gender: {
     type: String,
     enum: {
-      values: ["male", "female", "other"],
-      message: "{VALUE} is not a valid gender",
+      values: ['male', 'female', 'other'],
+      message: '{VALUE} is not a valid gender',
     },
-    required: [true, "Gender is required"],
+    required: [true, 'Gender is required'],
   },
   dateOfBirth: {
     type: String,
   },
   email: {
     type: String,
-    required: [true, "Email address is required"],
+    required: [true, 'Email address is required'],
     unique: true,
     // match: [/^\S+@\S+\.\S+$/, "Email is not valid"],
   },
   contactNo: {
     type: String,
-    required: [true, "Contact number is required"],
+    required: [true, 'Contact number is required'],
     // match: [/^\+?[1-9]\d{1,14}$/, "Contact number is not valid"],
   },
   emergencyContactNo: {
@@ -99,38 +99,42 @@ const studentSchema = new Schema<IStudent, StudentModel, StudentMethods>({
   bloodGroup: {
     type: String,
     enum: {
-      values: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-      message: "{VALUE} is not a valid blood group",
+      values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      message: '{VALUE} is not a valid blood group',
     },
   },
   presentAddress: {
     type: String,
-    required: [true, "Present address is required"],
+    required: [true, 'Present address is required'],
   },
   permanentAddress: {
     type: String,
-    required: [true, "Permanent address is required"],
+    required: [true, 'Permanent address is required'],
   },
   guardian: {
     type: guardianSchema,
-    required: [true, "Guardian information is required"],
+    required: [true, 'Guardian information is required'],
   },
   localGuardian: {
     type: localGuardianSchema,
-    required: [true, "Local guardian information is required"],
+    required: [true, 'Local guardian information is required'],
   },
   profileImg: {
     type: String,
-    required: [true, "Profile image URL is required"],
+    required: [true, 'Profile image URL is required'],
   },
   admissionSemester: {
     type: Schema.Types.ObjectId,
-    ref: "AcademicSemester",
+    ref: 'AcademicSemester',
   },
-  academicDepartment:{
+  academicDepartment: {
     type: Schema.Types.ObjectId,
-    ref:"academicDepartment",
-  }
+    ref: 'academicDepartment',
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 studentSchema.methods.isUserExists = async function (id: string) {
@@ -138,4 +142,4 @@ studentSchema.methods.isUserExists = async function (id: string) {
   return existingUser;
 };
 
-export const Student = model<IStudent, StudentModel>("Student", studentSchema);
+export const Student = model<IStudent, StudentModel>('Student', studentSchema);

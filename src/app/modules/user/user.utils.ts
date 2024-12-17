@@ -1,17 +1,17 @@
-import { IAcademicSemester } from "../academicSemester/academicSemester.interface";
-import { User } from "./user.model";
+import { IAcademicSemester } from '../academicSemester/academicSemester.interface';
+import { User } from './user.model';
 
 export const findLastStudentId = async (year: string, sem: string) => {
   const regex = new RegExp(`^${year}${sem}`);
   const lastStudent = await User.findOne(
     {
-      role: "student",
+      role: 'student',
       id: { $regex: regex },
     },
     {
       id: 1,
       _id: 0,
-    }
+    },
   )
     .sort({
       createdAt: -1,
@@ -26,7 +26,7 @@ export const generateStudentId = async (payload: IAcademicSemester) => {
   const currentYear = payload.year;
   const lastStudentId = await findLastStudentId(
     currentYear,
-    currentSemesterCode
+    currentSemesterCode,
   );
 
   const lastStudentSemesterCode = lastStudentId?.substring(4, 6); //01;
@@ -40,7 +40,7 @@ export const generateStudentId = async (payload: IAcademicSemester) => {
   ) {
     currentId = lastStudentId.substring(6); //0001
   }
-  let incrementId = (Number(currentId) + 1).toString().padStart(4, "0");
+  let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
 
   incrementId = `${payload.year}${payload.code}${incrementId}`;
 

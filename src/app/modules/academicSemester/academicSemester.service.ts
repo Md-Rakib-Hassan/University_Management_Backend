@@ -1,10 +1,10 @@
-import { academicSemesterNameCodeValidator } from "./academicSemester.constant";
-import { IAcademicSemester } from "./academicSemester.interface";
-import { AcademicSemester } from "./academicSemester.model";
+import { academicSemesterNameCodeValidator } from './academicSemester.constant';
+import { IAcademicSemester } from './academicSemester.interface';
+import { AcademicSemester } from './academicSemester.model';
 
 const createAcademicSemesterIntoDB = async (payload: IAcademicSemester) => {
   if (academicSemesterNameCodeValidator[payload.name] !== payload.code) {
-    throw new Error("Invalid Semester Code");
+    throw new Error('Invalid Semester Code');
   }
 
   const result = await AcademicSemester.create(payload);
@@ -23,14 +23,14 @@ const getSingleAcademicSemesterFromDB = async (id: string) => {
 
 const updateAcademicSemesterIntoDB = async (
   id: string,
-  payload: Partial<IAcademicSemester>
+  payload: Partial<IAcademicSemester>,
 ) => {
   if (
     payload.name &&
     payload.code &&
     academicSemesterNameCodeValidator[payload.name] !== payload.code
   ) {
-    throw new Error("Invalid Semester Name or Code.");
+    throw new Error('Invalid Semester Name or Code.');
   }
   const result = await AcademicSemester.findByIdAndUpdate(id, payload, {
     new: true,

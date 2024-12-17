@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
-import { IUser } from "./user.interface";
-import bcrypt from "bcrypt";
-import config from "../../config";
+import { model, Schema } from 'mongoose';
+import { IUser } from './user.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 const userSchema = new Schema<IUser>(
   {
     id: {
@@ -21,13 +21,13 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       required: true,
-      enum: ["admin", "student", "faculty"],
+      enum: ['admin', 'student', 'faculty'],
     },
     status: {
       type: String,
       required: true,
-      enum: ["in-progress", "blocked"],
-      default: "in-progress",
+      enum: ['in-progress', 'blocked'],
+      default: 'in-progress',
     },
     isDeleted: {
       type: Boolean,
@@ -37,21 +37,21 @@ const userSchema = new Schema<IUser>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   const user = this;
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.bcrypt_salt_rounds)
+    Number(config.bcrypt_salt_rounds),
   );
   next();
 });
 
-userSchema.post("save", async function (doc, next) {
-  doc.password = "";
+userSchema.post('save', async function (doc, next) {
+  doc.password = '';
   next();
 });
 
-export const User = model<IUser>("User", userSchema);
+export const User = model<IUser>('User', userSchema);
